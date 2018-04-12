@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import msgModule from '../utils/msg';
 import { log } from '../../../src/utils/common';
-import '../../scss/rewards.scss';
 
 const msg = msgModule('rewards');
 const { sendMessage } = msg;
@@ -50,7 +49,7 @@ class OfferCard extends Component {
 	render() {
 		console.log('render props:', this.props);
 		return (
-			<div>
+			<div className="ghostery-rewards-container">
 				{ this.state.closed !== true &&
 				<div className="ghostery-reward-card">
 					<div className="reward-card-header">

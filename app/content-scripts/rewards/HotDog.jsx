@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import msgModule from '../utils/msg';
 import { log } from '../../../src/utils/common';
-import '../../scss/rewards.scss';
 
 const msg = msgModule('hotdog');
 const { sendMessage } = msg;
@@ -31,7 +30,7 @@ class HotDog extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="ghostery-rewards-container">
 				{ this.state.closed !== true &&
 					<div>
 						<div onClick={this.navigate} className={`hot-dog-container`}>

@@ -111,6 +111,8 @@ const buildPlugins = [
 // configs
 const config = {
 	entry: {
+		shadydom: [path.resolve('node_modules/@webcomponents/shadydom/shadydom.min.js')],
+		webcomponents: [path.resolve('node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js')],
 		background: [SRC_DIR + '/background.js'],
 		blocked_redirect: [CONTENT_SCRIPTS_DIR + '/blocked_redirect.js'],
 		click_to_play: [CONTENT_SCRIPTS_DIR + '/click_to_play.js'],
@@ -130,7 +132,7 @@ const config = {
 		panel_android: [SASS_DIR + '/panel_android.scss'],
 		purplebox_styles: [SASS_DIR + '/purplebox.scss'],
 		setup: [SASS_DIR + '/setup.scss'],
-		licenses: [SASS_DIR + '/licenses.scss'],
+		licenses: [SASS_DIR + '/licenses.scss']
 	},
 	devtool: 'none',
 	performance: { hints: false },
@@ -173,15 +175,13 @@ const config = {
 							]
 						}
 					}]
-			},{
+			}, {
 				test: /\.scss?/,
 				include: [
 					path.resolve(__dirname, 'app/scss/rewards')
 				],
 				use: [
 					{
-						loader: "style-loader"
-					}, {
 						loader: "css-loader"
 					}, {
 						loader: "sass-loader",

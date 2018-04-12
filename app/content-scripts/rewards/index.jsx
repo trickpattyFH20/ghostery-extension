@@ -17,16 +17,30 @@
  */
 /* eslint no-use-before-define: 0 */
 
+// if (window.customElements) window.customElements.forcePolyfill = true;
+// var ShadyDOM = { force: true };
+// var ShadyCSS = { shimcssproperties: true};
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router-dom';
 import history from '../../panel/utils/history';
 import HotDog from './HotDog';
 import OfferCard from './OfferCard';
+import styles from '../../scss/rewards.scss';
 
 const viewport = document.getElementById('viewport');
 const rewardsContainer = document.createElement('div');
 const channelsSupported = (typeof chrome.runtime.connect === 'function');
+
+const shadyEl = document.createElement('div');
+shadyEl.attachShadow({mode: 'open'});
+shadyEl.innerHTML = `<style>
+	${styles[0][1]}
+</style>
+`
+
+console.log('attached shadow');
 
 let port;
 /* TODO remove test reward data */
@@ -41,8 +55,6 @@ let reward = {
 }
 
 rewardsContainer.id = 'ghostery-rewards-container';
-rewardsContainer.className = 'show ghostery-rewards-container';
-// rewardsContainer.attachShadow({mode: 'open'});
 
 function handleMessages(request, sender, response) {
 	console.log(request);
@@ -68,17 +80,18 @@ const MainView = (props) => {
 	console.log('history', history)
 	history.goBack()
 	return (
-		<Router history={history}>
-			<div>
-				<Route exact path="/" render={ ()=> <HotDog reward={props.reward} /> } />
-				<Route path="/hotdog" render={ ()=> <HotDog reward={props.reward} /> } />
-				<Route path="/offercard" render={ ()=> <OfferCard reward={props.reward} /> } />
-			</div>
-		</Router>
+			<Router history={history}>
+				<div>
+					<Route exact path="/" render={ ()=> <HotDog reward={props.reward} /> } />
+					<Route path="/hotdog" render={ ()=> <HotDog reward={props.reward} /> } />
+					<Route path="/offercard" render={ ()=> <OfferCard reward={props.reward} /> } />
+				</div>
+			</Router>
 	)
 };
 
 document.addEventListener('DOMContentLoaded', (event) => {
-	document.body.appendChild(rewardsContainer);
+	shadyEl.appendChild(rewardsContainer);
+	document.body.appendChild(shadyEl);
 	ReactDOM.render(<MainView reward={reward}/>, document.getElementById('ghostery-rewards-container'));
 });

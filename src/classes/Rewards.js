@@ -74,7 +74,7 @@ class Rewards {
 			}
 		});
 
-		// console.log('INJECT REWARDS');
+		console.log('INJECT REWARDS');
 		return injectScript(tab_id, 'dist/rewards.js', null, 'document_start').then(() => {
 			// console.log('REWARDS INJECTED');
 		}).catch((err) => {
