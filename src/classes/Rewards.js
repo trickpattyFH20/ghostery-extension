@@ -61,7 +61,7 @@ class Rewards {
 				offer_id: offerId
 			}
 		};
-		log('sendSignal: ', signal);
+		log('sendSignal: ', actionId);
 		cliqz.modules['offers-v2'].background.actions.processRealEstateMessage(signal);
 	}
 
